@@ -1,5 +1,7 @@
 template-file-path: ./ec2.yaml
 
+parameters:
+
 tags:
     cost-center: '123456'
     org: 'AWS'
