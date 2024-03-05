@@ -13,7 +13,7 @@ Resources:
         - Key: Name
           Value: teste-ec2
         - Key: Terraform
-          Value: false
+          Value: True
       SecurityGroups:
         - Ref: InstanceSecurityGroup
 
