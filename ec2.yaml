@@ -2,22 +2,12 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: Template para criar uma instância EC2 com o nome teste-ec2
 
-Parameters:
-  InstanceType:
-    Description: Tipo da Instância EC2
-    Type: String
-    Default: t2.micro
-    AllowedValues:
-      - t2.micro
-      - t3.micro
-      - t3.small
-    ConstraintDescription: deve ser um tipo de instância EC2 válido.
 
 Resources:
   MyEC2Instance:
     Type: AWS::EC2::Instance
     Properties:
-      InstanceType: !Ref InstanceType
+      InstanceType: t2.micro
       ImageId: ami-0440d3b780d96b29d # Substitua pelo ID da AMI desejada, por exemplo, uma AMI do Amazon Linux 2
       Tags:
         - Key: Name
