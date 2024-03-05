@@ -1,0 +1,50 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Template para criar uma instância EC2 com o nome teste-ec2
+
+Parameters:
+  InstanceType:
+    Description: Tipo da Instância EC2
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+      - t2.micro
+      - t3.micro
+      - t3.small
+    ConstraintDescription: deve ser um tipo de instância EC2 válido.
+
+Resources:
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: !Ref InstanceType
+      ImageId: ami-0440d3b780d96b29d # Substitua pelo ID da AMI desejada, por exemplo, uma AMI do Amazon Linux 2
+      Tags:
+        - Key: Name
+          Value: teste-ec2
+        # - Key: Terraform
+        #   Value: false
+      SecurityGroups:
+        - Ref: InstanceSecurityGroup
+
+  InstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Permitir acesso SSH e HTTP
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: 0.0.0.0/0 # CUIDADO: Isso permite acesso SSH de qualquer lugar, restrinja conforme necessário
+        - IpProtocol: tcp
+          FromPort: '80'
+          ToPort: '80'
+          CidrIp: 0.0.0.0/0 # Permite tráfego HTTP de qualquer lugar, ajuste conforme necessário
+
+Outputs:
+  InstancePublicIP:
+    Description: "O Endereço IP Público da Instância EC2"
+    Value: !GetAtt MyEC2Instance.PublicIp
+  InstancePrivateIP:
+    Description: "O Endereço IP Privado da Instância EC2"
+    Value: !GetAtt MyEC2Instance.PrivateIp
