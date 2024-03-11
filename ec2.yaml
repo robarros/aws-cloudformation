@@ -38,3 +38,4 @@ Outputs:
   InstancePrivateIP:
     Description: "O Endereço IP Privado da Instância EC2"
     Value: !GetAtt MyEC2Instance.PrivateIp
+    
